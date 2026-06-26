@@ -1,0 +1,1160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Many Deaths of Laila Starr</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <style>
+    *,
+    *::before,
+    *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: #0a0a0f;
+      color: #f0e6c8;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, .heading {
+      font-family: "Playfair Display", Georgia, "Times New Roman", serif;
+    }
+
+    /* Navigation */
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.25rem 1rem;
+      padding: 0.75rem 1rem;
+      background: rgba(10, 10, 15, 0.92);
+      border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+      backdrop-filter: blur(8px);
+    }
+
+    .nav-link {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: rgba(240, 230, 200, 0.55);
+      padding: 0.35rem 0.5rem;
+      border: none;
+      background: none;
+      cursor: pointer;
+      transition: color 0.25s ease;
+    }
+
+    .nav-link:hover {
+      color: #d4af37;
+    }
+
+    .nav-link.active {
+      color: #d4af37;
+    }
+
+    /* Pages */
+    .page {
+      display: none;
+      min-height: 100vh;
+      padding: 80px 60px;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+
+    .page.visible {
+      display: block;
+    }
+
+    .page.fade-in {
+      opacity: 1;
+    }
+
+    .page-inner {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    /* Hero */
+    #page-hero {
+      position: relative;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 80px 60px;
+      overflow: hidden;
+      background-image:
+        linear-gradient(160deg,
+          rgba(5, 5, 16, 0.78) 0%,
+          rgba(10, 10, 26, 0.72) 35%,
+          rgba(15, 20, 40, 0.72) 65%,
+          rgba(10, 10, 15, 0.85) 100%),
+        url("images/1_副本.jpeg");
+      background-size: cover, cover;
+      background-position: center top, center 60px;
+      background-repeat: no-repeat, no-repeat;
+    }
+
+    #page-hero.visible {
+      display: flex;
+    }
+
+    #starfield {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .star {
+      position: absolute;
+      background: #ffffff;
+      clip-path: polygon(
+        50% 0%, 56% 44%, 100% 50%, 56% 56%,
+        50% 100%, 44% 56%, 0% 50%, 44% 44%
+      );
+      filter: drop-shadow(0 0 var(--glow) rgba(255, 255, 255, 0.85));
+      opacity: 0;
+      animation: twinkle var(--duration) ease-in-out infinite;
+      animation-delay: var(--delay);
+    }
+
+    @keyframes twinkle {
+      0%, 100% {
+        opacity: 0;
+        transform: scale(0.6);
+      }
+      50% {
+        opacity: var(--peak-opacity);
+        transform: scale(1);
+      }
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      max-width: 900px;
+    }
+
+    .hero-title {
+      font-size: clamp(2.2rem, 6vw, 4.2rem);
+      font-weight: 700;
+      line-height: 1.15;
+      color: #d4af37;
+      margin-bottom: 1.25rem;
+      text-shadow: 0 0 40px rgba(212, 175, 55, 0.15);
+    }
+
+    .hero-subtitle {
+      font-size: clamp(1rem, 2.5vw, 1.35rem);
+      line-height: 1.6;
+      color: rgba(240, 230, 200, 0.85);
+      margin-bottom: 2rem;
+    }
+
+    .hero-quote {
+      font-size: clamp(1.05rem, 2vw, 1.25rem);
+      font-style: italic;
+      font-family: "Playfair Display", Georgia, serif;
+      color: rgba(212, 175, 55, 0.75);
+      margin-bottom: 2.75rem;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-block;
+      padding: 0.85rem 2.2rem;
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #d4af37;
+      background: transparent;
+      border: 1.5px solid #d4af37;
+      border-radius: 2px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .btn:hover {
+      background: rgba(212, 175, 55, 0.12);
+      box-shadow: 0 0 24px rgba(212, 175, 55, 0.25);
+    }
+
+    /* Translucent gradient key-style button */
+    .btn-solid {
+      color: #f5e9c0;
+      background: linear-gradient(180deg,
+        rgba(233, 200, 96, 0.35) 0%,
+        rgba(212, 175, 55, 0.22) 60%,
+        rgba(184, 148, 31, 0.12) 100%);
+      border-color: rgba(212, 175, 55, 0.7);
+      backdrop-filter: blur(2px);
+      box-shadow:
+        0 5px 0 rgba(138, 109, 18, 0.5),
+        0 8px 14px rgba(0, 0, 0, 0.35);
+      transition: transform 0.08s ease, box-shadow 0.08s ease, background 0.2s ease;
+    }
+
+    .btn-solid:hover {
+      background: linear-gradient(180deg,
+        rgba(241, 211, 117, 0.5) 0%,
+        rgba(220, 184, 65, 0.35) 60%,
+        rgba(193, 156, 34, 0.2) 100%);
+      box-shadow:
+        0 5px 0 rgba(138, 109, 18, 0.5),
+        0 10px 18px rgba(212, 175, 55, 0.3);
+    }
+
+    .btn-solid:active {
+      transform: translateY(5px);
+      box-shadow:
+        0 0 0 rgba(138, 109, 18, 0.5),
+        0 2px 6px rgba(0, 0, 0, 0.35);
+    }
+
+    .btn-back {
+      margin-top: 3rem;
+      font-size: 0.9rem;
+    }
+
+    /* About */
+    #page-about {
+      position: relative;
+      background-image:
+        linear-gradient(180deg,
+          #0a0a0f 0%,
+          #0a0a0f 42%,
+          rgba(10, 10, 15, 0.88) 66%,
+          rgba(10, 10, 15, 0.45) 100%),
+        url("images/5.jpeg");
+      background-size: cover, cover;
+      background-position: center, center bottom;
+      background-repeat: no-repeat, no-repeat;
+    }
+
+    #page-about .page-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .section-label {
+      display: block;
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: #d4af37;
+      margin-bottom: 1.5rem;
+    }
+
+    .about-columns {
+      display: flex;
+      gap: 70px;
+      align-items: center;
+      min-height: calc(100vh - 160px);
+    }
+
+    .book-cover {
+      flex-shrink: 0;
+      width: 300px;
+      height: 440px;
+      object-fit: cover;
+      display: block;
+      border: 2px solid #d4af37;
+      border-radius: 4px;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6), 0 0 40px rgba(212, 175, 55, 0.15);
+      animation: floatCover 4.5s ease-in-out infinite;
+    }
+
+    @keyframes floatCover {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-16px); }
+    }
+
+    .about-info h2 {
+      font-family: "Great Vibes", "Playfair Display", cursive;
+      font-size: 4rem;
+      font-weight: 400;
+      color: #ffffff;
+      line-height: 1.1;
+      margin-bottom: 1.75rem;
+    }
+
+    .about-meta p {
+      color: #cfc5a8;
+      margin-bottom: 12px;
+      font-size: 1.2rem;
+    }
+
+    .about-meta span {
+      color: #d4af37;
+    }
+
+    .about-synopsis {
+      margin-top: 1.75rem;
+      color: #e0d8bf;
+      line-height: 1.85;
+      font-size: 1.2rem;
+    }
+
+    .about-video {
+      max-width: 880px;
+      margin: 2rem auto 4rem;
+      text-align: center;
+    }
+
+    .about-video-title {
+      font-family: "Great Vibes", "Playfair Display", cursive;
+      font-size: 3rem;
+      font-weight: 400;
+      color: #d4af37;
+      margin-bottom: 1.5rem;
+    }
+
+    .video-wrap {
+      position: relative;
+      width: 100%;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+      border: 2px solid #d4af37;
+      border-radius: 4px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+    }
+
+    .video-wrap iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    /* Creators */
+    .section-label-centered {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .creators-columns {
+      display: flex;
+      gap: 60px;
+      align-items: flex-start;
+    }
+
+    .creator-card {
+      flex: 1;
+      text-align: center;
+    }
+
+    #page-creators {
+      position: relative;
+      background-color: #0a0a0f;
+      background-image:
+        linear-gradient(180deg,
+          rgba(10, 10, 15, 0.88) 0%,
+          rgba(10, 10, 15, 0.66) 45%,
+          rgba(10, 10, 15, 0.9) 100%),
+        url("images/21.jpeg");
+      background-size: cover, cover;
+      background-position: center, center;
+      background-repeat: no-repeat, no-repeat;
+    }
+
+    #page-creators .page-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .creator-avatar {
+      width: 150px;
+      height: 150px;
+      margin: 0 auto 1.25rem;
+      border-radius: 50%;
+      border: 2px solid #d4af37;
+      background: #1a1a2e;
+      object-fit: cover;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #d4af37;
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: 0.95rem;
+      font-weight: 600;
+      animation: floatAvatar 4s ease-in-out infinite;
+    }
+
+    .creator-card:nth-child(2) .creator-avatar {
+      animation-delay: -2s;
+    }
+
+    @keyframes floatAvatar {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-14px); }
+    }
+
+    .creator-name {
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: #d4af37;
+      margin-bottom: 0.35rem;
+    }
+
+    .creator-role {
+      font-size: 0.85rem;
+      color: rgba(240, 230, 200, 0.45);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 1.25rem;
+    }
+
+    .creator-bio {
+      font-size: 0.95rem;
+      line-height: 1.75;
+      color: #ccc;
+      text-align: left;
+      margin-bottom: 1.25rem;
+    }
+
+    .creator-works {
+      text-align: left;
+    }
+
+    .creator-works-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #d4af37;
+      margin-bottom: 0.5rem;
+    }
+
+    .creator-works ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .creator-works li {
+      font-size: 0.9rem;
+      color: rgba(240, 230, 200, 0.7);
+      line-height: 1.7;
+      padding-left: 1rem;
+      position: relative;
+    }
+
+    .creator-works li::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      color: #d4af37;
+    }
+
+    .partnership-timeline {
+      position: relative;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-top: 4rem;
+      padding-top: 1.5rem;
+    }
+
+    .partnership-timeline::before {
+      content: "";
+      position: absolute;
+      top: calc(1.5rem + 7px);
+      left: 12.5%;
+      right: 12.5%;
+      height: 2px;
+      background: #d4af37;
+      z-index: 0;
+    }
+
+    .timeline-step {
+      position: relative;
+      z-index: 1;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 0 0.5rem;
+    }
+
+    .timeline-dot {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: #0a0a0f;
+      border: 2px solid #d4af37;
+      margin-bottom: 1rem;
+      flex-shrink: 0;
+    }
+
+    .timeline-step-title {
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: 0.95rem;
+      color: #ffffff;
+      line-height: 1.4;
+    }
+
+    .page-nav-bottom {
+      margin-top: 3.5rem;
+      text-align: center;
+    }
+
+    /* Story Timeline */
+    .story-subtitle {
+      text-align: center;
+      font-size: 1.05rem;
+      color: rgba(240, 230, 200, 0.55);
+      margin-top: -2rem;
+      margin-bottom: 3.5rem;
+    }
+
+    .story-timeline {
+      position: relative;
+      padding: 1rem 0;
+    }
+
+    .story-timeline::before {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: #d4af37;
+      transform: translateX(-50%);
+      z-index: 0;
+    }
+
+    .story-chapter {
+      display: grid;
+      grid-template-columns: 1fr 20px 1fr;
+      column-gap: 1.75rem;
+      margin-bottom: 2.5rem;
+      position: relative;
+    }
+
+    .story-chapter:last-child {
+      margin-bottom: 0;
+    }
+
+    .story-chapter--left .chapter-card {
+      grid-column: 1;
+    }
+
+    .story-chapter--right .chapter-card {
+      grid-column: 3;
+    }
+
+    .story-chapter .chapter-dot {
+      grid-column: 2;
+      grid-row: 1;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: #0a0a0f;
+      border: 2px solid #d4af37;
+      justify-self: center;
+      align-self: start;
+      margin-top: 1.5rem;
+      z-index: 1;
+    }
+
+    .chapter-card {
+      background: #1a1a2e;
+      border-left: 4px solid #d4af37;
+      padding: 1.25rem 1.5rem;
+    }
+
+    .chapter-card--ch1 {
+      cursor: pointer;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .chapter-card--ch1:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.45);
+    }
+
+    /* Chapter 1 story strip */
+    #page-ch1-story {
+      cursor: pointer;
+    }
+
+    .story-strip {
+      max-width: 920px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 48px;
+    }
+
+    .story-panel {
+      display: none;
+      width: 74%;
+      border: 1px solid rgba(212, 175, 55, 0.35);
+      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.6);
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .story-panel.revealed {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .story-panel:nth-child(odd) {
+      align-self: flex-start;
+      margin-left: 4%;
+    }
+
+    .story-panel:nth-child(even) {
+      align-self: flex-end;
+      margin-right: 4%;
+    }
+
+    .story-hint {
+      position: fixed;
+      bottom: 24px;
+      left: 0;
+      right: 0;
+      text-align: center;
+      font-size: 0.8rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(212, 175, 55, 0.7);
+      pointer-events: none;
+      z-index: 5;
+      animation: hintPulse 2s ease-in-out infinite;
+    }
+
+    .story-hint.hidden {
+      display: none;
+    }
+
+    @keyframes hintPulse {
+      0%, 100% { opacity: 0.35; }
+      50% { opacity: 0.9; }
+    }
+
+    .chapter-number {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #d4af37;
+      margin-bottom: 0.5rem;
+    }
+
+    .chapter-title {
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 0.75rem;
+      line-height: 1.3;
+    }
+
+    .chapter-summary {
+      font-size: 0.9rem;
+      color: rgba(240, 230, 200, 0.65);
+      line-height: 1.65;
+      margin-bottom: 0.85rem;
+    }
+
+    .chapter-idea {
+      font-style: italic;
+      font-size: 0.9rem;
+      color: #d4af37;
+      line-height: 1.5;
+      margin-bottom: 0.85rem;
+    }
+
+    .chapter-quote {
+      font-size: 0.8rem;
+      color: rgba(240, 230, 200, 0.45);
+      line-height: 1.5;
+    }
+
+    /* Placeholder pages */
+    .placeholder {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: calc(100vh - 160px);
+      text-align: center;
+    }
+
+    .placeholder h2 {
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      color: #d4af37;
+      margin-bottom: 1rem;
+    }
+
+    .placeholder p {
+      color: rgba(240, 230, 200, 0.5);
+      font-size: 1.1rem;
+    }
+
+    @media (max-width: 768px) {
+      .page {
+        padding: 80px 24px;
+      }
+
+      .nav {
+        gap: 0.15rem 0.5rem;
+      }
+
+      .nav-link {
+        font-size: 0.6rem;
+      }
+
+      .about-columns {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .creators-columns {
+        flex-direction: column;
+      }
+
+      .partnership-timeline {
+        flex-direction: column;
+        gap: 2rem;
+        align-items: center;
+      }
+
+      .partnership-timeline::before {
+        display: none;
+      }
+
+      .story-timeline::before {
+        left: 10px;
+        transform: none;
+      }
+
+      .story-chapter {
+        grid-template-columns: 20px 1fr;
+        column-gap: 1.25rem;
+      }
+
+      .story-chapter--left .chapter-card,
+      .story-chapter--right .chapter-card {
+        grid-column: 2;
+      }
+
+      .story-chapter .chapter-dot {
+        grid-column: 1;
+        margin-top: 1.25rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav" id="nav">
+    <button class="nav-link active" data-page="page-hero" onclick="showPage('page-hero')">Hero</button>
+    <button class="nav-link" data-page="page-about" onclick="showPage('page-about')">About</button>
+    <button class="nav-link" data-page="page-creators" onclick="showPage('page-creators')">Creators</button>
+    <button class="nav-link" data-page="page-timeline" onclick="showPage('page-timeline')">Timeline</button>
+    <button class="nav-link" data-page="page-characters" onclick="showPage('page-characters')">Characters</button>
+    <button class="nav-link" data-page="page-themes" onclick="showPage('page-themes')">Themes &amp; Symbolism</button>
+    <button class="nav-link" data-page="page-reflection" onclick="showPage('page-reflection')">Reflection</button>
+    <button class="nav-link" data-page="page-cited" onclick="showPage('page-cited')">Cited</button>
+  </nav>
+
+  <!-- PAGE 1: HERO -->
+  <div class="page visible fade-in" id="page-hero">
+    <div id="starfield" aria-hidden="true"></div>
+    <div class="hero-content">
+      <h1 class="hero-title">The Many Deaths of Laila Starr</h1>
+      <p class="hero-subtitle">An Interactive Exploration of Life, Death, Philosophy and Humanity</p>
+      <p class="hero-quote">"It is death that gives life its meaning."</p>
+      <button class="btn btn-solid" onclick="showPage('page-about')">Explore →</button>
+    </div>
+  </div>
+
+  <!-- PAGE 2: ABOUT -->
+  <div class="page" id="page-about">
+    <div class="page-inner">
+      <div class="about-columns">
+        <img class="book-cover" src="images/2.png" alt="The Many Deaths of Laila Starr book cover">
+        <div class="about-info">
+          <h2>The Many Deaths of Laila Starr</h2>
+          <div class="about-meta">
+            <p><span>Author:</span> Ram V.</p>
+            <p><span>Illustrator:</span> Felipe Andrade</p>
+            <p><span>Publisher:</span> BOOM! Studios</p>
+            <p><span>Published:</span> 2021</p>
+            <p><span>Genre:</span> Graphic Novel / Mythology / Fantasy</p>
+          </div>
+          <p class="about-synopsis">
+            When humanity discovers the secret to immortality, Death herself is made redundant. Cast out of the divine and forced to live as a mortal woman named Laila Starr, she must navigate the confusion, beauty, and pain of human existence. Through a series of encounters across different lifetimes, Laila comes to understand something she never could as an immortal: it is the ending that gives everything its meaning.
+          </p>
+        </div>
+      </div>
+
+      <div class="about-video">
+        <h3 class="about-video-title">Watch the Trailer</h3>
+        <div class="video-wrap">
+          <iframe
+            src="https://www.youtube.com/embed/-XUAcdfT-ik"
+            title="The Many Deaths of Laila Starr"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAGE 3: CREATORS -->
+  <div class="page" id="page-creators">
+    <div class="page-inner">
+      <span class="section-label section-label-centered">Meet the Creators</span>
+
+      <div class="creators-columns">
+        <div class="creator-card">
+          <img class="creator-avatar" src="images/4.jpeg" alt="Ram V.">
+          <h3 class="creator-name">Ram V.</h3>
+          <p class="creator-role">Writer</p>
+          <p class="creator-bio">
+            Ram V is an award-winning author and creator of comics and graphic novels such as Grafity's Wall, These Savage Shores, and Blue in Green. Since publishing his first book in 2016, Ram's work has gone on to garner critical and popular success and multiple awards. Apart from creating original work, since 2018, Ram has also written for iconic characters and titles at DC Comics and Marvel Entertainment.
+          </p>
+          <div class="creator-works">
+            <p class="creator-works-label">Key Works</p>
+            <ul>
+              <li>Swamp Thing</li>
+              <li>Batman: Reptilian</li>
+              <li>These Savage Shores</li>
+              <li>Grafity's Wall</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="creator-card">
+          <img class="creator-avatar" src="images/3.jpeg" alt="Felipe Andrade">
+          <h3 class="creator-name">Felipe Andrade</h3>
+          <p class="creator-role">Illustrator</p>
+          <p class="creator-bio">
+            Felipe Andrade is a Brazilian comic artist celebrated for his expressive linework and emotionally rich color palettes. His style blends realism with dreamlike abstraction, making him a perfect collaborator for this mythological story.
+          </p>
+          <div class="creator-works">
+            <p class="creator-works-label">Key Works</p>
+            <ul>
+              <li>The Many Deaths of Laila Starr</li>
+              <li>Various BOOM! Studios projects</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="partnership-timeline">
+        <div class="timeline-step">
+          <div class="timeline-dot"></div>
+          <p class="timeline-step-title">Creative Partnership</p>
+        </div>
+        <div class="timeline-step">
+          <div class="timeline-dot"></div>
+          <p class="timeline-step-title">BOOM! Studios</p>
+        </div>
+        <div class="timeline-step">
+          <div class="timeline-dot"></div>
+          <p class="timeline-step-title">Published 2021</p>
+        </div>
+        <div class="timeline-step">
+          <div class="timeline-dot"></div>
+          <p class="timeline-step-title">Critical Acclaim</p>
+        </div>
+      </div>
+
+      <div class="page-nav-bottom">
+        <button class="btn" onclick="showPage('page-timeline')">Next: Story Timeline →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAGE 4: TIMELINE -->
+  <div class="page" id="page-timeline">
+    <div class="page-inner">
+      <span class="section-label section-label-centered">Story Timeline</span>
+      <p class="story-subtitle">The journey of Death learning to be human</p>
+
+      <div class="story-timeline">
+        <div class="story-chapter story-chapter--left">
+          <div class="chapter-card chapter-card--ch1" onclick="showPage('page-ch1-story')">
+            <p class="chapter-number">Chapter 1</p>
+            <h3 class="chapter-title">Death Loses Her Job</h3>
+            <p class="chapter-summary">Laila is stripped of her divine role after humanity discovers immortality and is cast down to Earth as a mortal.</p>
+            <p class="chapter-idea">"What happens when death is no longer needed?"</p>
+            <p class="chapter-quote">"You are no longer necessary."</p>
+          </div>
+          <div class="chapter-dot"></div>
+        </div>
+
+        <div class="story-chapter story-chapter--right">
+          <div class="chapter-dot"></div>
+          <div class="chapter-card">
+            <p class="chapter-number">Chapter 2</p>
+            <h3 class="chapter-title">The First Death</h3>
+            <p class="chapter-summary">Laila experiences human vulnerability for the first time and encounters Darius, the boy whose birth triggered immortality.</p>
+            <p class="chapter-idea">"To be mortal is to be afraid."</p>
+            <p class="chapter-quote">"I did not know that breathing could hurt."</p>
+          </div>
+        </div>
+
+        <div class="story-chapter story-chapter--left">
+          <div class="chapter-card">
+            <p class="chapter-number">Chapter 3</p>
+            <h3 class="chapter-title">Learning to Live</h3>
+            <p class="chapter-summary">Laila struggles with hunger, loneliness, and desire. She begins to understand why humans fear death so deeply.</p>
+            <p class="chapter-idea">"You cannot understand life until you have something to lose."</p>
+            <p class="chapter-quote">"She was beginning to understand the weight of being alive."</p>
+          </div>
+          <div class="chapter-dot"></div>
+        </div>
+
+        <div class="story-chapter story-chapter--right">
+          <div class="chapter-dot"></div>
+          <div class="chapter-card">
+            <p class="chapter-number">Chapter 4</p>
+            <h3 class="chapter-title">The Meaning of Endings</h3>
+            <p class="chapter-summary">Laila witnesses love, loss, and the passage of time. She starts to see death not as an end but as what makes moments precious.</p>
+            <p class="chapter-idea">"Every goodbye makes every hello matter more."</p>
+            <p class="chapter-quote">"Nothing is beautiful because it lasts. Everything is beautiful because it does not."</p>
+          </div>
+        </div>
+
+        <div class="story-chapter story-chapter--left">
+          <div class="chapter-card">
+            <p class="chapter-number">Chapter 5</p>
+            <h3 class="chapter-title">The Final Encounter</h3>
+            <p class="chapter-summary">Laila meets Darius one last time as an old man. She finally understands her true purpose.</p>
+            <p class="chapter-idea">"Death is not the enemy of life. It is its guardian."</p>
+            <p class="chapter-quote">"I think I finally understand what I was for."</p>
+          </div>
+          <div class="chapter-dot"></div>
+        </div>
+
+        <div class="story-chapter story-chapter--right">
+          <div class="chapter-dot"></div>
+          <div class="chapter-card">
+            <p class="chapter-number">Ending</p>
+            <h3 class="chapter-title">The Cycle Continues</h3>
+            <p class="chapter-summary">Laila accepts her fate and returns to her role, transformed by her human experience.</p>
+            <p class="chapter-idea">"We are not valuable because we live forever. We are valuable because we do not."</p>
+            <p class="chapter-quote">"And so it goes. And so it must."</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="page-nav-bottom">
+        <button class="btn" onclick="showPage('page-characters')">Next: Character Gallery →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- CHAPTER 1 STORY STRIP -->
+  <div class="page" id="page-ch1-story">
+    <div class="page-inner">
+      <div class="story-strip" id="story-strip">
+        <img class="story-panel" src="images/111.jpeg" alt="Story panel 1">
+        <img class="story-panel" src="images/12.jpeg" alt="Story panel 2">
+        <img class="story-panel" src="images/13.jpeg" alt="Story panel 3">
+        <img class="story-panel" src="images/14.jpeg" alt="Story panel 4">
+        <img class="story-panel" src="images/15.jpeg" alt="Story panel 5">
+      </div>
+      <div class="page-nav-bottom">
+        <button class="btn btn-back" onclick="event.stopPropagation(); showPage('page-timeline')">← Back</button>
+      </div>
+    </div>
+    <div class="story-hint" id="story-hint">Click anywhere to continue ↓</div>
+  </div>
+
+  <!-- PAGE 5: CHARACTERS -->
+  <div class="page" id="page-characters">
+    <div class="page-inner placeholder">
+      <h2>Characters</h2>
+      <p>Coming soon...</p>
+      <button class="btn btn-back" onclick="showPage('page-hero')">← Back</button>
+    </div>
+  </div>
+
+  <!-- PAGE 6: THEMES & SYMBOLISM -->
+  <div class="page" id="page-themes">
+    <div class="page-inner placeholder">
+      <h2>Themes &amp; Symbolism</h2>
+      <p>Coming soon...</p>
+      <button class="btn btn-back" onclick="showPage('page-hero')">← Back</button>
+    </div>
+  </div>
+
+  <!-- PAGE 10: REFLECTION -->
+  <div class="page" id="page-reflection">
+    <div class="page-inner placeholder">
+      <h2>Reflection</h2>
+      <p>Coming soon...</p>
+      <button class="btn btn-back" onclick="showPage('page-hero')">← Back</button>
+    </div>
+  </div>
+
+  <!-- PAGE 11: CITED -->
+  <div class="page" id="page-cited">
+    <div class="page-inner placeholder">
+      <h2>Cited</h2>
+      <p>Coming soon...</p>
+      <button class="btn btn-back" onclick="showPage('page-hero')">← Back</button>
+    </div>
+  </div>
+
+  <script>
+    var currentPage = "page-hero";
+    var isTransitioning = false;
+
+    function showPage(id) {
+      if (isTransitioning || id === currentPage) return;
+
+      var current = document.getElementById(currentPage);
+      var next = document.getElementById(id);
+      if (!current || !next) return;
+
+      isTransitioning = true;
+
+      current.classList.remove("fade-in");
+
+      setTimeout(function () {
+        current.classList.remove("visible");
+        next.classList.add("visible");
+
+        window.scrollTo(0, 0);
+
+        requestAnimationFrame(function () {
+          next.classList.add("fade-in");
+        });
+
+        currentPage = id;
+        updateNav(id);
+        isTransitioning = false;
+
+        if (id === "page-ch1-story") {
+          resetStory();
+        }
+      }, 500);
+    }
+
+    function updateNav(activeId) {
+      var links = document.querySelectorAll(".nav-link");
+      links.forEach(function (link) {
+        if (link.getAttribute("data-page") === activeId) {
+          link.classList.add("active");
+        } else {
+          link.classList.remove("active");
+        }
+      });
+    }
+
+    var storyPanels = [];
+    var storyIndex = 0;
+
+    function initStory() {
+      storyPanels = Array.prototype.slice.call(
+        document.querySelectorAll("#story-strip .story-panel")
+      );
+      var page = document.getElementById("page-ch1-story");
+      if (page) {
+        page.addEventListener("click", function (e) {
+          if (e.target.closest(".btn")) return;
+          revealNextPanel();
+        });
+      }
+    }
+
+    function resetStory() {
+      storyIndex = 0;
+      storyPanels.forEach(function (p) {
+        p.classList.remove("revealed");
+        p.style.display = "none";
+      });
+      var hint = document.getElementById("story-hint");
+      if (hint) hint.classList.remove("hidden");
+      revealNextPanel();
+    }
+
+    function revealNextPanel() {
+      if (storyIndex >= storyPanels.length) return;
+      var idx = storyIndex;
+      var p = storyPanels[idx];
+      p.style.display = "block";
+      requestAnimationFrame(function () {
+        p.classList.add("revealed");
+      });
+      if (idx > 0) {
+        setTimeout(function () {
+          p.scrollIntoView({ behavior: "smooth", block: "center" });
+        }, 60);
+      }
+      storyIndex++;
+      if (storyIndex >= storyPanels.length) {
+        var hint = document.getElementById("story-hint");
+        if (hint) hint.classList.add("hidden");
+      }
+    }
+
+    (function createStarfield() {
+      var container = document.getElementById("starfield");
+      var starCount = 100;
+
+      for (var i = 0; i < starCount; i++) {
+        var star = document.createElement("div");
+        star.className = "star";
+
+        var size = (Math.random() * 16 + 6).toFixed(2);
+        var duration = (Math.random() * 3 + 2).toFixed(2) + "s";
+        var delay = (Math.random() * 5).toFixed(2) + "s";
+        var peakOpacity = (Math.random() * 0.4 + 0.6).toFixed(2);
+
+        star.style.width = size + "px";
+        star.style.height = size + "px";
+        star.style.left = Math.random() * 100 + "%";
+        star.style.top = Math.random() * 100 + "%";
+        star.style.setProperty("--duration", duration);
+        star.style.setProperty("--delay", delay);
+        star.style.setProperty("--peak-opacity", peakOpacity);
+        star.style.setProperty("--glow", (size * 1.6).toFixed(2) + "px");
+
+        container.appendChild(star);
+      }
+    })();
+
+    initStory();
+  </script>
+</body>
+</html>
