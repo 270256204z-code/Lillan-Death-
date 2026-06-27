@@ -416,6 +416,37 @@
       50% { transform: translateY(-14px); }
     }
 
+    .creator-jump {
+      position: absolute;
+      top: 88px;
+      right: 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      z-index: 4;
+    }
+
+    .creator-jump-img {
+      width: 120px;
+      height: auto;
+      filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.55));
+      transition: transform 0.25s ease;
+    }
+
+    .creator-jump:hover .creator-jump-img {
+      transform: scale(1.08) translateY(-4px);
+    }
+
+    .creator-jump-label {
+      color: #d4af37;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
     .creator-name {
       font-family: "Playfair Display", Georgia, serif;
       font-size: 1.75rem;
@@ -838,6 +869,10 @@
 
   <!-- PAGE 3: CREATORS -->
   <div class="page" id="page-creators">
+    <div class="creator-jump" onclick="showPage('page-timeline')" title="跳转">
+      <img class="creator-jump-img" src="images/28_cutout.png" alt="跳转">
+      <span class="creator-jump-label">跳转 →</span>
+    </div>
     <div class="page-inner">
       <span class="section-label section-label-centered">Meet the Creators</span>
 
@@ -896,9 +931,6 @@
         </div>
       </div>
 
-      <div class="page-nav-bottom">
-        <button class="btn" onclick="showPage('page-timeline')">Next: Story Timeline →</button>
-      </div>
     </div>
   </div>
 
