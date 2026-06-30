@@ -353,6 +353,18 @@
       border: 0;
     }
 
+    .video-note {
+      margin-top: 0.85rem;
+      font-size: 0.8rem;
+      color: rgba(240, 230, 200, 0.5);
+      line-height: 1.5;
+    }
+
+    .video-note a {
+      color: #d4af37;
+      text-decoration: underline;
+    }
+
     /* Creators */
     .section-label-centered {
       text-align: center;
@@ -385,6 +397,25 @@
     }
 
     #page-creators .page-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    #page-timeline {
+      position: relative;
+      background-color: #0a0a0f;
+      background-image:
+        linear-gradient(180deg,
+          rgba(10, 10, 15, 0.88) 0%,
+          rgba(10, 10, 15, 0.66) 45%,
+          rgba(10, 10, 15, 0.9) 100%),
+        url("images/24.jpeg");
+      background-size: cover, 75%;
+      background-position: center, center;
+      background-repeat: no-repeat, no-repeat;
+    }
+
+    #page-timeline .page-inner {
       position: relative;
       z-index: 1;
     }
@@ -429,7 +460,7 @@
     }
 
     .creator-jump-img {
-      width: 120px;
+      width: 56px;
       height: auto;
       filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.55));
       transition: transform 0.25s ease;
@@ -618,6 +649,7 @@
     }
 
     .chapter-card {
+      position: relative;
       background: #1a1a2e;
       border-left: 4px solid #d4af37;
       padding: 1.25rem 1.5rem;
@@ -628,13 +660,73 @@
       transition: transform 0.25s ease, box-shadow 0.25s ease;
     }
 
+    .card-jump {
+      position: absolute;
+      top: -26px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+      z-index: 3;
+      pointer-events: none;
+    }
+
+    .card-jump--left {
+      left: -26px;
+    }
+
+    .card-jump--right {
+      right: -26px;
+    }
+
+    .card-jump-img {
+      width: 50px;
+      height: auto;
+      filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.55));
+    }
+
+    .card-jump-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #d4af37;
+    }
+
+    .back-jump {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+    }
+
+    .back-jump-img {
+      width: 100px;
+      height: auto;
+      filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.55));
+      transition: transform 0.25s ease;
+    }
+
+    .back-jump:hover .back-jump-img {
+      transform: scale(1.07) translateY(-3px);
+    }
+
+    .back-jump-label {
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #d4af37;
+    }
+
     .chapter-card--ch1:hover {
       transform: translateY(-4px);
       box-shadow: 0 14px 30px rgba(0, 0, 0, 0.45);
     }
 
-    /* Chapter 1 story strip */
-    #page-ch1-story {
+    /* Story strip pages */
+    .story-page {
       cursor: pointer;
     }
 
@@ -734,6 +826,525 @@
       line-height: 1.5;
     }
 
+    /* Characters page */
+    #page-characters {
+      position: relative;
+      background-color: #0a0a0f;
+      background-image:
+        linear-gradient(180deg,
+          rgba(10, 10, 15, 0.88) 0%,
+          rgba(10, 10, 15, 0.66) 45%,
+          rgba(10, 10, 15, 0.9) 100%),
+        url("images/23.jpeg");
+      background-size: cover, 88% 78%;
+      background-position: center, center;
+      background-repeat: no-repeat, no-repeat;
+    }
+
+    #page-characters .page-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    #page-themes {
+      position: relative;
+      background-color: #0a0a0f;
+      background-image:
+        linear-gradient(180deg,
+          rgba(10, 10, 15, 0.92) 0%,
+          rgba(10, 10, 15, 0.78) 45%,
+          rgba(10, 10, 15, 0.94) 100%),
+        url("images/24.jpeg");
+      background-size: cover, 75%;
+      background-position: center, center;
+      background-repeat: no-repeat, no-repeat;
+    }
+
+    #page-themes .page-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .themes-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-top: 2.5rem;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .theme-accordion {
+      border: 1px solid rgba(212, 175, 55, 0.35);
+      border-radius: 8px;
+      overflow: hidden;
+      background: rgba(15, 15, 24, 0.72);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .theme-accordion.open {
+      border-color: rgba(212, 175, 55, 0.65);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45), 0 0 24px rgba(212, 175, 55, 0.08);
+    }
+
+    .theme-accordion-header {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 1.25rem 1.5rem;
+      background: rgba(20, 20, 32, 0.55);
+      border: none;
+      cursor: pointer;
+      text-align: left;
+      color: inherit;
+      transition: background 0.25s ease;
+    }
+
+    .theme-accordion-header:hover {
+      background: rgba(26, 26, 40, 0.85);
+    }
+
+    .theme-accordion-heading {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+
+    .theme-accordion-title {
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: 1.35rem;
+      font-weight: 600;
+      color: #d4af37;
+    }
+
+    .theme-accordion-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(240, 230, 200, 0.45);
+    }
+
+    .theme-accordion-icon {
+      flex-shrink: 0;
+      width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(212, 175, 55, 0.45);
+      border-radius: 50%;
+      color: #d4af37;
+      font-size: 1.2rem;
+      line-height: 1;
+      transition: transform 0.3s ease, background 0.25s ease;
+    }
+
+    .theme-accordion.open .theme-accordion-icon {
+      transform: rotate(45deg);
+      background: rgba(212, 175, 55, 0.12);
+    }
+
+    .theme-accordion-body {
+      display: grid;
+      grid-template-rows: 0fr;
+      transition: grid-template-rows 0.45s ease;
+    }
+
+    .theme-accordion.open .theme-accordion-body {
+      grid-template-rows: 1fr;
+    }
+
+    .theme-accordion-inner {
+      overflow: hidden;
+    }
+
+    .theme-accordion-content {
+      padding: 0 1.25rem 1.5rem;
+    }
+
+    .theme-visual {
+      position: relative;
+      margin: 0 0 1.5rem;
+      border: 2px solid rgba(212, 175, 55, 0.55);
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
+    }
+
+    .theme-visual img {
+      display: block;
+      width: 100%;
+      height: 300px;
+      object-fit: cover;
+      object-position: center center;
+    }
+
+    .theme-visual--crow img {
+      object-position: center 68%;
+    }
+
+    .theme-visual--rebirth img {
+      object-position: center 68%;
+    }
+
+    .theme-visual::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        180deg,
+        transparent 55%,
+        rgba(10, 10, 15, 0.75) 100%
+      );
+      pointer-events: none;
+    }
+
+    .theme-quote {
+      position: relative;
+      margin: 0;
+      padding: 1.75rem 2rem 1.75rem 3rem;
+      text-align: left;
+      color: #e0d8bf;
+      line-height: 1.9;
+      font-size: 1.05rem;
+      background: rgba(10, 10, 18, 0.65);
+      border: 1px solid rgba(212, 175, 55, 0.22);
+      border-radius: 4px;
+    }
+
+    .theme-quote::before {
+      content: "\201C";
+      position: absolute;
+      top: 0.2rem;
+      left: 1rem;
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: 4rem;
+      line-height: 1;
+      color: rgba(212, 175, 55, 0.35);
+    }
+
+    .characters-list {
+      display: flex;
+      flex-direction: column;
+      gap: 4rem;
+      margin-top: 2.5rem;
+    }
+
+    .character-card {
+      display: flex;
+      gap: 2.5rem;
+      align-items: center;
+    }
+
+    .character-card--reverse {
+      flex-direction: row-reverse;
+    }
+
+    .character-portrait {
+      flex-shrink: 0;
+      width: 220px;
+      height: 320px;
+      object-fit: cover;
+      object-position: center center;
+      border: 2px solid #d4af37;
+      border-radius: 6px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.55), 0 0 30px rgba(212, 175, 55, 0.12);
+      animation: floatAvatar 4s ease-in-out infinite;
+    }
+
+    .character-card:nth-child(even) .character-portrait {
+      animation-delay: -2s;
+    }
+
+    .character-portrait--darius {
+      object-position: 62% center;
+    }
+
+    .character-dialog {
+      position: relative;
+      flex: 1;
+      padding: 1.75rem 2rem;
+      background: rgba(20, 20, 32, 0.88);
+      border: 2px solid rgba(212, 175, 55, 0.55);
+      border-radius: 12px;
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
+    }
+
+    .character-card:not(.character-card--reverse) .character-dialog::before {
+      content: "";
+      position: absolute;
+      left: -14px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 0;
+      height: 0;
+      border-top: 14px solid transparent;
+      border-bottom: 14px solid transparent;
+      border-right: 14px solid rgba(212, 175, 55, 0.55);
+    }
+
+    .character-card:not(.character-card--reverse) .character-dialog::after {
+      content: "";
+      position: absolute;
+      left: -10px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 0;
+      height: 0;
+      border-top: 12px solid transparent;
+      border-bottom: 12px solid transparent;
+      border-right: 12px solid rgba(20, 20, 32, 0.88);
+    }
+
+    .character-card--reverse .character-dialog::before {
+      content: "";
+      position: absolute;
+      right: -14px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 0;
+      height: 0;
+      border-top: 14px solid transparent;
+      border-bottom: 14px solid transparent;
+      border-left: 14px solid rgba(212, 175, 55, 0.55);
+    }
+
+    .character-card--reverse .character-dialog::after {
+      content: "";
+      position: absolute;
+      right: -10px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 0;
+      height: 0;
+      border-top: 12px solid transparent;
+      border-bottom: 12px solid transparent;
+      border-left: 12px solid rgba(20, 20, 32, 0.88);
+    }
+
+    .character-name {
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      color: #d4af37;
+      margin-bottom: 0.35rem;
+    }
+
+    .character-role {
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(240, 230, 200, 0.55);
+      margin-bottom: 1rem;
+    }
+
+    .character-bio {
+      color: #e0d8bf;
+      line-height: 1.85;
+      font-size: 1.05rem;
+    }
+
+    /* Reflection page */
+    #page-reflection {
+      background:
+        radial-gradient(ellipse at 20% 10%, rgba(220, 120, 140, 0.14) 0%, transparent 45%),
+        radial-gradient(ellipse at 80% 90%, rgba(140, 80, 160, 0.16) 0%, transparent 50%),
+        radial-gradient(ellipse at 50% 50%, rgba(255, 160, 120, 0.06) 0%, transparent 60%),
+        linear-gradient(165deg, #0a0a0f 0%, #120e18 35%, #1a1020 65%, #0a0a0f 100%);
+    }
+
+    .reflection-content {
+      max-width: 750px;
+      margin: 0 auto;
+      padding: 1rem 0 2rem;
+    }
+
+    .reflection-visual {
+      margin-top: 2.5rem;
+      border: 2px solid rgba(212, 175, 55, 0.45);
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
+    }
+
+    .reflection-visual img {
+      display: block;
+      width: 100%;
+      height: auto;
+      max-height: 440px;
+      object-fit: cover;
+      object-position: center center;
+    }
+
+    .reflection-hero-quote {
+      font-family: "Playfair Display", Georgia, "Times New Roman", serif;
+      font-size: clamp(1.6rem, 4.5vw, 2.35rem);
+      font-weight: 400;
+      font-style: italic;
+      line-height: 1.45;
+      text-align: center;
+      color: #f5e0c8;
+      padding: 0 0.5rem;
+      text-shadow: 0 0 40px rgba(220, 140, 160, 0.2);
+    }
+
+    .reflection-divider {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      margin: 2.75rem 0 3rem;
+    }
+
+    .reflection-divider::before,
+    .reflection-divider::after {
+      content: "";
+      flex: 1;
+      max-width: 120px;
+      height: 1px;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(212, 175, 55, 0.45),
+        rgba(220, 140, 160, 0.35),
+        transparent
+      );
+    }
+
+    .reflection-lotus {
+      position: relative;
+      width: 28px;
+      height: 28px;
+      flex-shrink: 0;
+    }
+
+    .reflection-lotus::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255, 200, 160, 0.5) 0%, rgba(180, 100, 140, 0.25) 70%, transparent 100%);
+      box-shadow:
+        0 0 12px rgba(220, 140, 160, 0.35),
+        inset 0 0 8px rgba(255, 220, 200, 0.2);
+    }
+
+    .reflection-lotus::after {
+      content: "✦";
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      color: #d4af37;
+      text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+    }
+
+    .reflection-title {
+      font-family: "Playfair Display", Georgia, "Times New Roman", serif;
+      font-size: clamp(1.75rem, 4vw, 2.4rem);
+      font-weight: 600;
+      color: #d4af37;
+      margin-bottom: 2rem;
+      line-height: 1.25;
+    }
+
+    .reflection-body p {
+      margin-bottom: 1.5rem;
+      font-size: 1.05rem;
+      line-height: 1.95;
+      color: #e8dcc4;
+    }
+
+    .reflection-body p:last-child {
+      margin-bottom: 0;
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: 1.12rem;
+      font-style: italic;
+      color: #f5e9c8;
+      padding-top: 0.5rem;
+    }
+
+    /* Works Cited page */
+    #page-cited {
+      position: relative;
+      background-color: #0a0a0f;
+      overflow: hidden;
+    }
+
+    #page-cited::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: min(48vmin, 440px);
+      height: min(48vmin, 440px);
+      transform: translate(-50%, -50%);
+      background: url("images/45.jpeg") center / cover no-repeat;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    #page-cited::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg,
+        rgba(10, 10, 15, 0.88) 0%,
+        rgba(10, 10, 15, 0.66) 45%,
+        rgba(10, 10, 15, 0.9) 100%);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    #page-cited .page-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .citations-list {
+      max-width: 750px;
+      margin: 2.5rem auto 0;
+    }
+
+    .citation {
+      padding: 0 0 1.75rem 2.5rem;
+      margin: 0 0 1.75rem;
+      text-indent: -2.5rem;
+      font-size: 1.05rem;
+      line-height: 1.85;
+      color: #e0d8bf;
+      border-bottom: 1px solid rgba(212, 175, 55, 0.18);
+    }
+
+    .citation:last-child {
+      margin-bottom: 0;
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+
+    .citation a {
+      color: #d4af37;
+      text-decoration: none;
+      border-bottom: 1px solid rgba(212, 175, 55, 0.35);
+      transition: color 0.25s ease, border-color 0.25s ease;
+    }
+
+    .citation a:hover {
+      color: #f5e9c0;
+      border-bottom-color: rgba(245, 233, 192, 0.6);
+    }
+
+    .citation em {
+      font-style: italic;
+    }
+
     /* Placeholder pages */
     .placeholder {
       display: flex;
@@ -775,6 +1386,47 @@
 
       .creators-columns {
         flex-direction: column;
+      }
+
+      .character-card,
+      .character-card--reverse {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .character-portrait {
+        width: 180px;
+        height: 260px;
+      }
+
+      .character-dialog::before,
+      .character-dialog::after {
+        display: none;
+      }
+
+      .theme-visual img {
+        height: 220px;
+      }
+
+      .theme-quote {
+        padding: 1.5rem 1.5rem 1.5rem 2.75rem;
+        font-size: 1rem;
+      }
+
+      .reflection-divider {
+        margin: 2rem 0 2.25rem;
+      }
+
+      .reflection-body p {
+        font-size: 1rem;
+        line-height: 1.85;
+      }
+
+      .citation {
+        padding-left: 1.75rem;
+        text-indent: -1.75rem;
+        font-size: 0.98rem;
+        line-height: 1.8;
       }
 
       .partnership-timeline {
@@ -835,6 +1487,10 @@
 
   <!-- PAGE 2: ABOUT -->
   <div class="page" id="page-about">
+    <div class="creator-jump" onclick="showPage('page-creators')" title="Click">
+      <img class="creator-jump-img" src="images/28_cutout.png" alt="Click">
+      <span class="creator-jump-label">Click →</span>
+    </div>
     <div class="page-inner">
       <div class="about-columns">
         <img class="book-cover" src="images/2.png" alt="The Many Deaths of Laila Starr book cover">
@@ -857,12 +1513,16 @@
         <h3 class="about-video-title">Watch the Trailer</h3>
         <div class="video-wrap">
           <iframe
-            src="https://www.youtube.com/embed/-XUAcdfT-ik"
+            src="https://www.youtube.com/embed/-XUAcdfT-ik?hl=en&cc_lang_pref=en&persist_hl=1"
             title="The Many Deaths of Laila Starr"
             frameborder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             allowfullscreen></iframe>
         </div>
+        <p class="video-note">
+          YouTube video — if it doesn't play, open this page through a local server (not by opening the file directly), or
+          <a href="https://www.youtube.com/watch?v=-XUAcdfT-ik" target="_blank" rel="noopener">watch it on YouTube</a>.
+        </p>
       </div>
     </div>
   </div>
@@ -871,7 +1531,7 @@
   <div class="page" id="page-creators">
     <div class="creator-jump" onclick="showPage('page-timeline')" title="跳转">
       <img class="creator-jump-img" src="images/28_cutout.png" alt="跳转">
-      <span class="creator-jump-label">跳转 →</span>
+      <span class="creator-jump-label">Click →</span>
     </div>
     <div class="page-inner">
       <span class="section-label section-label-centered">Meet the Creators</span>
@@ -943,6 +1603,10 @@
       <div class="story-timeline">
         <div class="story-chapter story-chapter--left">
           <div class="chapter-card chapter-card--ch1" onclick="showPage('page-ch1-story')">
+            <div class="card-jump card-jump--left">
+              <img class="card-jump-img" src="images/28_cutout.png" alt="click it">
+              <span class="card-jump-label">click it</span>
+            </div>
             <p class="chapter-number">Chapter 1</p>
             <h3 class="chapter-title">Death Loses Her Job</h3>
             <p class="chapter-summary">Laila is stripped of her divine role after humanity discovers immortality and is cast down to Earth as a mortal.</p>
@@ -954,7 +1618,11 @@
 
         <div class="story-chapter story-chapter--right">
           <div class="chapter-dot"></div>
-          <div class="chapter-card">
+          <div class="chapter-card chapter-card--ch1" onclick="showPage('page-ch2-story')">
+            <div class="card-jump card-jump--right">
+              <img class="card-jump-img" src="images/28_cutout.png" alt="click it">
+              <span class="card-jump-label">click it</span>
+            </div>
             <p class="chapter-number">Chapter 2</p>
             <h3 class="chapter-title">The First Death</h3>
             <p class="chapter-summary">Laila experiences human vulnerability for the first time and encounters Darius, the boy whose birth triggered immortality.</p>
@@ -964,7 +1632,11 @@
         </div>
 
         <div class="story-chapter story-chapter--left">
-          <div class="chapter-card">
+          <div class="chapter-card chapter-card--ch1" onclick="showPage('page-ch3-story')">
+            <div class="card-jump card-jump--left">
+              <img class="card-jump-img" src="images/28_cutout.png" alt="click it">
+              <span class="card-jump-label">click it</span>
+            </div>
             <p class="chapter-number">Chapter 3</p>
             <h3 class="chapter-title">Learning to Live</h3>
             <p class="chapter-summary">Laila struggles with hunger, loneliness, and desire. She begins to understand why humans fear death so deeply.</p>
@@ -976,7 +1648,11 @@
 
         <div class="story-chapter story-chapter--right">
           <div class="chapter-dot"></div>
-          <div class="chapter-card">
+          <div class="chapter-card chapter-card--ch1" onclick="showPage('page-ch4-story')">
+            <div class="card-jump card-jump--right">
+              <img class="card-jump-img" src="images/28_cutout.png" alt="click it">
+              <span class="card-jump-label">click it</span>
+            </div>
             <p class="chapter-number">Chapter 4</p>
             <h3 class="chapter-title">The Meaning of Endings</h3>
             <p class="chapter-summary">Laila witnesses love, loss, and the passage of time. She starts to see death not as an end but as what makes moments precious.</p>
@@ -986,7 +1662,11 @@
         </div>
 
         <div class="story-chapter story-chapter--left">
-          <div class="chapter-card">
+          <div class="chapter-card chapter-card--ch1" onclick="showPage('page-ch5-story')">
+            <div class="card-jump card-jump--left">
+              <img class="card-jump-img" src="images/28_cutout.png" alt="click it">
+              <span class="card-jump-label">click it</span>
+            </div>
             <p class="chapter-number">Chapter 5</p>
             <h3 class="chapter-title">The Final Encounter</h3>
             <p class="chapter-summary">Laila meets Darius one last time as an old man. She finally understands her true purpose.</p>
@@ -998,7 +1678,11 @@
 
         <div class="story-chapter story-chapter--right">
           <div class="chapter-dot"></div>
-          <div class="chapter-card">
+          <div class="chapter-card chapter-card--ch1" onclick="showPage('page-ending-story')">
+            <div class="card-jump card-jump--right">
+              <img class="card-jump-img" src="images/28_cutout.png" alt="click it">
+              <span class="card-jump-label">click it</span>
+            </div>
             <p class="chapter-number">Ending</p>
             <h3 class="chapter-title">The Cycle Continues</h3>
             <p class="chapter-summary">Laila accepts her fate and returns to her role, transformed by her human experience.</p>
@@ -1015,9 +1699,9 @@
   </div>
 
   <!-- CHAPTER 1 STORY STRIP -->
-  <div class="page" id="page-ch1-story">
+  <div class="page story-page" id="page-ch1-story">
     <div class="page-inner">
-      <div class="story-strip" id="story-strip">
+      <div class="story-strip">
         <img class="story-panel" src="images/111.jpeg" alt="Story panel 1">
         <img class="story-panel" src="images/12.jpeg" alt="Story panel 2">
         <img class="story-panel" src="images/13.jpeg" alt="Story panel 3">
@@ -1025,45 +1709,402 @@
         <img class="story-panel" src="images/15.jpeg" alt="Story panel 5">
       </div>
       <div class="page-nav-bottom">
-        <button class="btn btn-back" onclick="event.stopPropagation(); showPage('page-timeline')">← Back</button>
+        <div class="back-jump" onclick="event.stopPropagation(); showPage('page-timeline')">
+          <img class="back-jump-img" src="images/28_cutout.png" alt="back">
+          <span class="back-jump-label">← Back</span>
+        </div>
       </div>
     </div>
-    <div class="story-hint" id="story-hint">Click anywhere to continue ↓</div>
+    <div class="story-hint">Click anywhere to continue ↓</div>
+  </div>
+
+  <!-- CHAPTER 2 STORY STRIP -->
+  <div class="page story-page" id="page-ch2-story">
+    <div class="page-inner">
+      <div class="story-strip">
+        <img class="story-panel" src="images/33.jpeg" alt="Story panel 1">
+        <img class="story-panel" src="images/34.jpeg" alt="Story panel 2">
+        <img class="story-panel" src="images/35.jpeg" alt="Story panel 3">
+        <img class="story-panel" src="images/36.jpeg" alt="Story panel 4">
+        <img class="story-panel" src="images/37.jpeg" alt="Story panel 5">
+        <img class="story-panel" src="images/38.jpeg" alt="Story panel 6">
+        <img class="story-panel" src="images/39.png" alt="Story panel 7">
+        <img class="story-panel" src="images/40.jpeg" alt="Story panel 8">
+      </div>
+      <div class="page-nav-bottom">
+        <div class="back-jump" onclick="event.stopPropagation(); showPage('page-timeline')">
+          <img class="back-jump-img" src="images/28_cutout.png" alt="back">
+          <span class="back-jump-label">← Back</span>
+        </div>
+      </div>
+    </div>
+    <div class="story-hint">Click anywhere to continue ↓</div>
+  </div>
+
+  <!-- CHAPTER 3 STORY STRIP -->
+  <div class="page story-page" id="page-ch3-story">
+    <div class="page-inner">
+      <div class="story-strip">
+        <img class="story-panel" src="images/45.jpeg" alt="Story panel 1">
+        <img class="story-panel" src="images/46.jpeg" alt="Story panel 2">
+        <img class="story-panel" src="images/47.jpeg" alt="Story panel 3">
+        <img class="story-panel" src="images/48.jpeg" alt="Story panel 4">
+        <img class="story-panel" src="images/41.jpeg" alt="Story panel 5">
+        <img class="story-panel" src="images/49.png" alt="Story panel 6">
+        <img class="story-panel" src="images/50.png" alt="Story panel 7">
+      </div>
+      <div class="page-nav-bottom">
+        <div class="back-jump" onclick="event.stopPropagation(); showPage('page-timeline')">
+          <img class="back-jump-img" src="images/28_cutout.png" alt="back">
+          <span class="back-jump-label">← Back</span>
+        </div>
+      </div>
+    </div>
+    <div class="story-hint">Click anywhere to continue ↓</div>
+  </div>
+
+  <!-- CHAPTER 4 STORY STRIP -->
+  <div class="page story-page" id="page-ch4-story">
+    <div class="page-inner">
+      <div class="story-strip">
+        <img class="story-panel" src="images/51.jpeg" alt="Story panel 1">
+        <img class="story-panel" src="images/52.png" alt="Story panel 2">
+        <img class="story-panel" src="images/53.png" alt="Story panel 3">
+        <img class="story-panel" src="images/54.png" alt="Story panel 4">
+        <img class="story-panel" src="images/56.png" alt="Story panel 5">
+        <img class="story-panel" src="images/55.png" alt="Story panel 6">
+        <img class="story-panel" src="images/57.png" alt="Story panel 7">
+        <img class="story-panel" src="images/58.png" alt="Story panel 8">
+      </div>
+      <div class="page-nav-bottom">
+        <div class="back-jump" onclick="event.stopPropagation(); showPage('page-timeline')">
+          <img class="back-jump-img" src="images/28_cutout.png" alt="back">
+          <span class="back-jump-label">← Back</span>
+        </div>
+      </div>
+    </div>
+    <div class="story-hint">Click anywhere to continue ↓</div>
+  </div>
+
+  <!-- CHAPTER 5 STORY STRIP -->
+  <div class="page story-page" id="page-ch5-story">
+    <div class="page-inner">
+      <div class="story-strip">
+        <img class="story-panel" src="images/61.jpeg" alt="Story panel 1">
+        <img class="story-panel" src="images/62.jpeg" alt="Story panel 2">
+        <img class="story-panel" src="images/63.png" alt="Story panel 3">
+        <img class="story-panel" src="images/64.png" alt="Story panel 4">
+        <img class="story-panel" src="images/65.png" alt="Story panel 5">
+        <img class="story-panel" src="images/66.png" alt="Story panel 6">
+        <img class="story-panel" src="images/67.jpeg" alt="Story panel 7">
+      </div>
+      <div class="page-nav-bottom">
+        <div class="back-jump" onclick="event.stopPropagation(); showPage('page-timeline')">
+          <img class="back-jump-img" src="images/28_cutout.png" alt="back">
+          <span class="back-jump-label">← Back</span>
+        </div>
+      </div>
+    </div>
+    <div class="story-hint">Click anywhere to continue ↓</div>
+  </div>
+
+  <!-- ENDING STORY STRIP -->
+  <div class="page story-page" id="page-ending-story">
+    <div class="page-inner">
+      <div class="story-strip">
+        <img class="story-panel" src="images/60.png" alt="Story panel 1">
+        <img class="story-panel" src="images/61.jpeg" alt="Story panel 2">
+        <img class="story-panel" src="images/62.jpeg" alt="Story panel 3">
+        <img class="story-panel" src="images/67.jpeg" alt="Story panel 4">
+        <img class="story-panel" src="images/68.png" alt="Story panel 5">
+        <img class="story-panel" src="images/69.png" alt="Story panel 6">
+        <img class="story-panel" src="images/70.png" alt="Story panel 7">
+      </div>
+      <div class="page-nav-bottom">
+        <div class="back-jump" onclick="event.stopPropagation(); showPage('page-timeline')">
+          <img class="back-jump-img" src="images/28_cutout.png" alt="back">
+          <span class="back-jump-label">← Back</span>
+        </div>
+      </div>
+    </div>
+    <div class="story-hint">Click anywhere to continue ↓</div>
   </div>
 
   <!-- PAGE 5: CHARACTERS -->
   <div class="page" id="page-characters">
-    <div class="page-inner placeholder">
-      <h2>Characters</h2>
-      <p>Coming soon...</p>
-      <button class="btn btn-back" onclick="showPage('page-hero')">← Back</button>
+    <div class="page-inner">
+      <span class="section-label section-label-centered">Character Gallery</span>
+
+      <div class="characters-list">
+        <article class="character-card">
+          <img class="character-portrait" src="images/29.jpeg" alt="Laila Starr">
+          <div class="character-dialog">
+            <h3 class="character-name">Laila Starr / Death (Human Form)</h3>
+            <p class="character-role">Goddess of Death · Mortal Vessel</p>
+            <p class="character-bio">Cast into a mortal body after Darius Shah's birth, Laila wanders Mumbai angry and detached — until each death teaches her why life matters because it ends.</p>
+          </div>
+        </article>
+
+        <article class="character-card character-card--reverse">
+          <img class="character-portrait" src="images/25.jpeg" alt="Death in divine form">
+          <div class="character-dialog">
+            <h3 class="character-name">Death (Divine Form)</h3>
+            <p class="character-role">Goddess of Death · Divine Office</p>
+            <p class="character-bio">A multi-armed blue goddess in a pink power suit — her many hands hold phones and documents, turning death into divine office work.</p>
+          </div>
+        </article>
+
+        <article class="character-card">
+          <img class="character-portrait" src="images/26.jpeg" alt="Brahma">
+          <div class="character-dialog">
+            <h3 class="character-name">Brahma / The Higher Gods</h3>
+            <p class="character-role">Head of the Divine Bureaucracy</p>
+            <p class="character-bio">Head of the cosmic bureaucracy, Brahma runs the universe like a corporation — delivering Death's layoff with calm, impersonal indifference.</p>
+          </div>
+        </article>
+
+        <article class="character-card character-card--reverse">
+          <img class="character-portrait" src="images/66.jpeg" alt="Agni">
+          <div class="character-dialog">
+            <h3 class="character-name">Agni</h3>
+            <p class="character-role">Brahma's Assistant · Divine Office</p>
+            <p class="character-bio">Brahma's flame-headed assistant — glasses, suspenders, quiet efficiency. Even the gods need a secretary.</p>
+          </div>
+        </article>
+
+        <article class="character-card">
+          <img class="character-portrait character-portrait--darius" src="images/71.jpeg" alt="Young Darius Shah">
+          <div class="character-dialog">
+            <h3 class="character-name">Darius Shah — As a Child</h3>
+            <p class="character-role">Childhood · Mumbai</p>
+            <p class="character-bio">A curious, warm-hearted boy in Mumbai — his wonder and friendship with Bardhan hint at the greatness and tragedy ahead.</p>
+          </div>
+        </article>
+
+        <article class="character-card character-card--reverse">
+          <img class="character-portrait" src="images/70.jpeg" alt="Bardhan">
+          <div class="character-dialog">
+            <h3 class="character-name">Bardhan</h3>
+            <p class="character-role">Countryside Companion · Gentle Giant</p>
+            <p class="character-bio">A towering red-skinned giant who guides young Darius with patient wisdom — his death becomes Darius's first real encounter with loss.</p>
+          </div>
+        </article>
+
+        <article class="character-card">
+          <img class="character-portrait" src="images/75.png" alt="The Crow">
+          <div class="character-dialog">
+            <h3 class="character-name">The Crow</h3>
+            <p class="character-role">Laila's Companion · Mumbai</p>
+            <p class="character-bio">A sharp, sarcastic talking crow — Laila's only companion as she learns to navigate mortal life in Mumbai.</p>
+          </div>
+        </article>
+
+        <article class="character-card character-card--reverse">
+          <img class="character-portrait" src="images/28.jpeg" alt="Pranah">
+          <div class="character-dialog">
+            <h3 class="character-name">Pranah — The God of Life</h3>
+            <p class="character-role">God of Life · Death's Ally</p>
+            <p class="character-bio">The small blue God of Life who keeps resurrecting Laila — proof that life and death are not opposites, but intertwined.</p>
+          </div>
+        </article>
+      </div>
+
+      <div class="page-nav-bottom">
+        <button class="btn" onclick="showPage('page-themes')">Next: Themes &amp; Symbolism →</button>
+      </div>
     </div>
   </div>
 
   <!-- PAGE 6: THEMES & SYMBOLISM -->
   <div class="page" id="page-themes">
-    <div class="page-inner placeholder">
-      <h2>Themes &amp; Symbolism</h2>
-      <p>Coming soon...</p>
-      <button class="btn btn-back" onclick="showPage('page-hero')">← Back</button>
+    <div class="page-inner">
+      <span class="section-label section-label-centered">Themes &amp; Symbolism</span>
+
+      <div class="themes-list">
+        <article class="theme-accordion open">
+          <button class="theme-accordion-header" type="button" onclick="toggleTheme(this)">
+            <div class="theme-accordion-heading">
+              <h3 class="theme-accordion-title">Death as Liberation</h3>
+              <span class="theme-accordion-label">Core Theme</span>
+            </div>
+            <span class="theme-accordion-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="theme-accordion-body">
+            <div class="theme-accordion-inner">
+              <div class="theme-accordion-content">
+                <div class="theme-visual">
+                  <img src="images/112.jpeg" alt="Death as Liberation">
+                </div>
+                <blockquote class="theme-quote">In this story, death is not an enemy — it is what gives life its meaning. Without an ending, nothing would matter. Laila's journey teaches her that death is not a punishment, but a gift.</blockquote>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="theme-accordion">
+          <button class="theme-accordion-header" type="button" onclick="toggleTheme(this)">
+            <div class="theme-accordion-heading">
+              <h3 class="theme-accordion-title">The City of Mumbai</h3>
+              <span class="theme-accordion-label">Setting &amp; Symbolism</span>
+            </div>
+            <span class="theme-accordion-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="theme-accordion-body">
+            <div class="theme-accordion-inner">
+              <div class="theme-accordion-content">
+                <div class="theme-visual">
+                  <img src="images/113.jpeg" alt="The City of Mumbai">
+                </div>
+                <blockquote class="theme-quote">Mumbai represents the chaos and beauty of human life. Millions of overlapping lives, losses, and small joys happening all at once — a constant reminder that every person carries their own universe.</blockquote>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="theme-accordion">
+          <button class="theme-accordion-header" type="button" onclick="toggleTheme(this)">
+            <div class="theme-accordion-heading">
+              <h3 class="theme-accordion-title">Color</h3>
+              <span class="theme-accordion-label">Art &amp; Symbolism</span>
+            </div>
+            <span class="theme-accordion-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="theme-accordion-body">
+            <div class="theme-accordion-inner">
+              <div class="theme-accordion-content">
+                <div class="theme-visual">
+                  <img src="images/114.png" alt="Color">
+                </div>
+                <blockquote class="theme-quote">Filipe Andrade uses deep blues for the divine world and warm pinks and oranges for the human world. As Laila becomes more human, the colors around her shift and soften — visually showing her transformation.</blockquote>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="theme-accordion">
+          <button class="theme-accordion-header" type="button" onclick="toggleTheme(this)">
+            <div class="theme-accordion-heading">
+              <h3 class="theme-accordion-title">The Crow</h3>
+              <span class="theme-accordion-label">Symbolism</span>
+            </div>
+            <span class="theme-accordion-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="theme-accordion-body">
+            <div class="theme-accordion-inner">
+              <div class="theme-accordion-content">
+                <div class="theme-visual theme-visual--crow">
+                  <img src="images/30.jpeg" alt="The Crow">
+                </div>
+                <blockquote class="theme-quote">The crow is a classic symbol of death across many cultures. In this story, it becomes Laila's only companion — a darkly comic reminder of who she used to be, following her through her mortal life.</blockquote>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="theme-accordion">
+          <button class="theme-accordion-header" type="button" onclick="toggleTheme(this)">
+            <div class="theme-accordion-heading">
+              <h3 class="theme-accordion-title">Rebirth</h3>
+              <span class="theme-accordion-label">Core Theme</span>
+            </div>
+            <span class="theme-accordion-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="theme-accordion-body">
+            <div class="theme-accordion-inner">
+              <div class="theme-accordion-content">
+                <div class="theme-visual theme-visual--rebirth">
+                  <img src="images/115.jpeg" alt="Rebirth">
+                </div>
+                <blockquote class="theme-quote">Every time Laila dies and comes back, she wakes up knowing a little more about what it means to be human. Her repeated deaths are not failures — they are lessons.</blockquote>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="theme-accordion">
+          <button class="theme-accordion-header" type="button" onclick="toggleTheme(this)">
+            <div class="theme-accordion-heading">
+              <h3 class="theme-accordion-title">Darius Shah</h3>
+              <span class="theme-accordion-label">Character &amp; Symbolism</span>
+            </div>
+            <span class="theme-accordion-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="theme-accordion-body">
+            <div class="theme-accordion-inner">
+              <div class="theme-accordion-content">
+                <div class="theme-visual">
+                  <img src="images/26 2.jpeg" alt="Darius Shah">
+                </div>
+                <blockquote class="theme-quote">Darius is not just a character — he is a symbol of humanity's greatest fear and greatest hope. He represents the part of us that refuses to accept loss, and the question of whether cheating death would actually make us happier.</blockquote>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <div class="page-nav-bottom">
+        <button class="btn" onclick="showPage('page-reflection')">Next: Reflection →</button>
+      </div>
     </div>
   </div>
 
   <!-- PAGE 10: REFLECTION -->
   <div class="page" id="page-reflection">
-    <div class="page-inner placeholder">
-      <h2>Reflection</h2>
-      <p>Coming soon...</p>
-      <button class="btn btn-back" onclick="showPage('page-hero')">← Back</button>
+    <div class="page-inner">
+      <div class="reflection-content">
+        <blockquote class="reflection-hero-quote">
+          Death is not the opposite of life. It is what gives life its shape.
+        </blockquote>
+
+        <div class="reflection-divider" aria-hidden="true">
+          <span class="reflection-lotus"></span>
+        </div>
+
+        <h2 class="reflection-title">What Death Taught Me About Living</h2>
+
+        <div class="reflection-body">
+          <p>Before I read <em>The Many Deaths of Laila Starr</em>, I thought of death the way most people do — as something to avoid thinking about. But this graphic novel made me sit with it. It made me uncomfortable in the best way.</p>
+
+          <p>What stayed with me most is not the story of a goddess losing her job, or even the question of immortality. It is the smaller moments — Laila standing in a crowded Mumbai street, overwhelmed by the noise and color of a life she never had to experience before. Darius as a child, asking Bardhan why the soil needs turning. The crow following Laila through a city that does not know what she is.</p>
+
+          <p>Ram V is not asking whether death is good or bad. He is asking what we do with the time we have. And Filipe Andrade's art answers that question visually — the colors shift from cold blue to warm pink and orange as Laila becomes more human, more present, more alive. You can feel the change without being told about it.</p>
+
+          <p>I think what this graphic novel does best is make you feel the weight of an ordinary moment. A cup of tea. A conversation on a rooftop. A mango held in two hands. These are the things Laila learns to see. And by the end, they are the things I noticed too.</p>
+
+          <p>Death is not the opposite of life. It is what gives life its shape.</p>
+        </div>
+
+        <div class="reflection-visual">
+          <img src="images/114.png" alt="Reflection illustration">
+        </div>
+      </div>
+
+      <div class="page-nav-bottom">
+        <button class="btn" onclick="showPage('page-cited')">Next: Cited →</button>
+      </div>
     </div>
   </div>
 
   <!-- PAGE 11: CITED -->
   <div class="page" id="page-cited">
-    <div class="page-inner placeholder">
-      <h2>Cited</h2>
-      <p>Coming soon...</p>
-      <button class="btn btn-back" onclick="showPage('page-hero')">← Back</button>
+    <div class="page-inner">
+      <span class="section-label section-label-centered">Works Cited</span>
+
+      <div class="citations-list">
+        <p class="citation">V, Ram. <em>The Many Deaths of Laila Starr</em>. Illustrated by Filipe Andrade, BOOM! Studios, 2021.</p>
+
+        <p class="citation">&ldquo;The Many Deaths of Laila Starr.&rdquo; <em>Comics Fandom Wiki</em>, <a href="https://comics.fandom.com/wiki/The_Many_Deaths_of_Laila_Starr" target="_blank" rel="noopener noreferrer">comics.fandom.com/wiki/The_Many_Deaths_of_Laila_Starr</a>. Accessed 29 June 2026.</p>
+
+        <p class="citation">Nikky the Writer. &ldquo;Book Review: The Many Deaths of Laila Starr by Ram V and Filipe Andrade.&rdquo; <a href="https://nikkythewriter.com/post/book-review-the-many-deaths-of-laila-starr-by-ram-v-and-filipe-andrade" target="_blank" rel="noopener noreferrer">nikkythewriter.com/post/book-review-the-many-deaths-of-laila-starr-by-ram-v-and-filipe-andrade</a>. Accessed 29 June 2026.</p>
+
+        <p class="citation">&ldquo;Comics Review: The Many Deaths of Laila Starr Is Profoundly, Beautifully Human.&rdquo; <em>Boss Rush Network</em>, <a href="https://bossrush.net/2024/08/comics-review-the-many-deaths-of-laila-starr-is-profoundly-beautifully-human/" target="_blank" rel="noopener noreferrer">bossrush.net/2024/08/comics-review-the-many-deaths-of-laila-starr-is-profoundly-beautifully-human/</a>. Accessed 29 June 2026.</p>
+
+        <p class="citation"><em>The Many Deaths of Laila Starr</em>. Goodreads, <a href="https://www.goodreads.com/book/show/58673883-the-many-deaths-of-laila-starr" target="_blank" rel="noopener noreferrer">www.goodreads.com/book/show/58673883-the-many-deaths-of-laila-starr</a>. Accessed 29 June 2026.</p>
+      </div>
+
+      <div class="page-nav-bottom">
+        <button class="btn btn-back" onclick="showPage('page-hero')">← Back to Home</button>
+      </div>
     </div>
   </div>
 
@@ -1096,8 +2137,8 @@
         updateNav(id);
         isTransitioning = false;
 
-        if (id === "page-ch1-story") {
-          resetStory();
+        if (next.classList.contains("story-page")) {
+          resetStory(next);
         }
       }, 500);
     }
@@ -1113,37 +2154,48 @@
       });
     }
 
-    var storyPanels = [];
-    var storyIndex = 0;
+    function toggleTheme(btn) {
+      var item = btn.closest(".theme-accordion");
+      var willOpen = !item.classList.contains("open");
 
-    function initStory() {
-      storyPanels = Array.prototype.slice.call(
-        document.querySelectorAll("#story-strip .story-panel")
-      );
-      var page = document.getElementById("page-ch1-story");
-      if (page) {
-        page.addEventListener("click", function (e) {
-          if (e.target.closest(".btn")) return;
-          revealNextPanel();
-        });
+      document.querySelectorAll(".theme-accordion.open").forEach(function (el) {
+        el.classList.remove("open");
+      });
+
+      if (willOpen) {
+        item.classList.add("open");
       }
     }
 
-    function resetStory() {
-      storyIndex = 0;
-      storyPanels.forEach(function (p) {
+    function initStory() {
+      var pages = document.querySelectorAll(".story-page");
+      pages.forEach(function (page) {
+        page._panels = Array.prototype.slice.call(
+          page.querySelectorAll(".story-panel")
+        );
+        page._index = 0;
+        page.addEventListener("click", function (e) {
+          if (e.target.closest(".btn") || e.target.closest(".back-jump")) return;
+          revealNextPanel(page);
+        });
+      });
+    }
+
+    function resetStory(page) {
+      page._index = 0;
+      page._panels.forEach(function (p) {
         p.classList.remove("revealed");
         p.style.display = "none";
       });
-      var hint = document.getElementById("story-hint");
+      var hint = page.querySelector(".story-hint");
       if (hint) hint.classList.remove("hidden");
-      revealNextPanel();
+      revealNextPanel(page);
     }
 
-    function revealNextPanel() {
-      if (storyIndex >= storyPanels.length) return;
-      var idx = storyIndex;
-      var p = storyPanels[idx];
+    function revealNextPanel(page) {
+      if (page._index >= page._panels.length) return;
+      var idx = page._index;
+      var p = page._panels[idx];
       p.style.display = "block";
       requestAnimationFrame(function () {
         p.classList.add("revealed");
@@ -1153,9 +2205,9 @@
           p.scrollIntoView({ behavior: "smooth", block: "center" });
         }, 60);
       }
-      storyIndex++;
-      if (storyIndex >= storyPanels.length) {
-        var hint = document.getElementById("story-hint");
+      page._index++;
+      if (page._index >= page._panels.length) {
+        var hint = page.querySelector(".story-hint");
         if (hint) hint.classList.add("hidden");
       }
     }
